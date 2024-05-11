@@ -41,6 +41,7 @@ Route::post('profile/{id}', [ProfileController::class, 'editProfile']);
 
 // Product
 Route::get('product', [ProductController::class, 'product']);
+Route::get('productFavorite', [ProductController::class, 'productFavorite']);
 
 // Rating
 Route::post('rate', [RateController::class, 'storeRate']);

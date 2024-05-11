@@ -176,4 +176,3 @@ Create Product
     </div>
   </div>
 @endsection
-

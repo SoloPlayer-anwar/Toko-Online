@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -17,11 +18,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $filterKeyword = $request->get('keyword');
-        $product['product'] = Product::with(['category', 'variants', 'sizes'])->paginate(10);
+        $product['product'] = Product::with(['category', 'variants'])->paginate(10);
 
         if($filterKeyword)
         {
-            $product['product'] = Product::with(['category', 'variants', 'sizes'])
+            $product['product'] = Product::with(['category', 'variants'])
             ->where("name_product", "LIKE", "%$filterKeyword%")
             ->paginate(10);
         }
@@ -136,6 +137,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->back()->with('status', 'Product Berhasil didelete');
     }
 }

@@ -37,11 +37,11 @@ class RateController extends Controller
         $rate = Rate::create([
             'user_id' => $request->user_id,
             'product_id' => $request->product_id,
-            'variant_rate' => $request->rating,
-            'size_rate' => $request->reviews,
-            'category_rate' => $request->variant_product,
-            'image_rate' => $request->name_category,
-            'rating' => $request->image_product,
+            'variant_rate' => $request->variant_rate,
+            'size_rate' => $request->size_rate,
+            'category_rate' => $request->category_rate,
+            'image_rate' => $request->image_rate,
+            'rating' => $request->rating,
             'reviews' => $request->reviews
         ]);
 

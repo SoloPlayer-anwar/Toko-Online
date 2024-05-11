@@ -155,7 +155,7 @@ class TransactionController extends Controller
             }
         }
 
-        $transaction = Transaction::with(['users', 'carts']);
+        $transaction = Transaction::with(['users', 'carts', 'users.profiles']);
 
         if($user_id)
         {

@@ -64,21 +64,24 @@ class ProductController extends Controller
         $input = $request->all();
         $product = Product::create($input);
 
+
+
         if ($request->has('variants')) {
             foreach ($request->variants as $index => $variantData) {
                 $variantName = $variantData['name'];
-                $imageFile = $request->file('variants.' . $index . '.image');
+                $imageFile = $request->file('variants')[$index]['image'] ?? null;
 
+                $fileName = null;
                 if ($imageFile && $imageFile->isValid()) {
-                    $fileName = "product/" . date('YmdHis'). "." . $imageFile->getClientOriginalExtension();
+                    $fileName = "product/" . date('YmdHis') . "_" . uniqid() . "." . $imageFile->getClientOriginalExtension();
                     $uploadPath = env('UPLOAD_PATH') . "/product";
                     $imageFile->move($uploadPath, $fileName);
-
-                    $product->variants()->create([
-                        'variant_name' => $variantName,
-                        'image_product' => $fileName
-                    ]);
                 }
+
+                $product->variants()->create([
+                    'variant_name' => $variantName,
+                    'image_product' => $fileName,
+                ]);
             }
         }
 

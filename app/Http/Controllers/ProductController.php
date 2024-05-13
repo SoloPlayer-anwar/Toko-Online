@@ -70,9 +70,9 @@ class ProductController extends Controller
                 $imageFile = $request->file('variants.' . $index . '.image');
 
                 if ($imageFile && $imageFile->isValid()) {
-                    $fileName = "product/" . date('YmdHis') . "_" . uniqid() . "." . $imageFile->getClientOriginalExtension();
+                    $fileName = "product/" . date('YmdHis'). "." . $imageFile->getClientOriginalExtension();
                     $uploadPath = env('UPLOAD_PATH') . "/product";
-                    $imageFile->storeAs($uploadPath, $fileName);
+                    $imageFile->move($uploadPath, $fileName);
 
                     $product->variants()->create([
                         'variant_name' => $variantName,
